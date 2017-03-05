@@ -1,6 +1,7 @@
 ## Express Generator
 
 * Quick scaffolding tool to generate an Express application skeleton
+* Can learn the best practice
 
 ## Installing Express generator
 
@@ -22,7 +23,19 @@ $ express <App Name>
 $ npm install
 ```
 
+* Lastly, start the application
 
+```bash
+$ npm start
+```
+
+## Generated Application
+
+* app.js: starting application
+* package.json
+* public: static resources
+* routes: application routes
+* views: templates
 
 ## Reference
 
