@@ -30,7 +30,11 @@ app.listen(3000, () => {
 
 * Middlewares provide a lot of plug-in functionalities that can be used within your Express application
 * Many third-party middlewares to extend functionality
-* Example: morgan for logging \([https://github.com/expressjs/morgan](https://github.com/expressjs/morgan)\)
+* Example: morgan for logging \([https://github.com/expressjs/morgan](https://github.com/expressjs/morgan\)\)\)
+
+```bash
+$ npm install --save morgan
+```
 
 ```js
 const morgan = require('morgan');
