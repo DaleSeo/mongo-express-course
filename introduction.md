@@ -4,11 +4,15 @@
 
 * Fast, unopinionated, minimalist web framework for Node.js
 * [http://expressjs.com](http://expressjs.com)
-* Many third-party middleware to extend functionality
+* Many third-party middlewares to extend functionality
 
 ## Installing Express
 
+```bash
+$ npm install --save express
+```
 
+## Express  
 
 
 
