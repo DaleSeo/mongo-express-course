@@ -8,13 +8,25 @@
 $ npm install -g express-generator
 ```
 
-## Generating an Express application 
+## Generating an Express application
 
 ```bash
 $ express <App Name>
 ```
 
- – Generates a folder under the current folder with the name
+* Generates a folder under the current folder with the name, &lt;App Name&gt;
+  * Various options available
+* Then, move to the folder and install the node modules
 
- – Various options available • Then, move to the folder and install the node modules: npm install
+```js
+$ npm install
+```
+
+
+
+## Reference
+
+* [http://expressjs.com/en/starter/generator.html](http://expressjs.com/en/starter/generator.html)
+
+
 
