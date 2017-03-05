@@ -22,6 +22,10 @@ app.get('/tasks/:id', (req, res, next) => {
 * Parses the body of the message and popluates the `req.body` property
 * [https://github.com/expressjs/body-parser](https://github.com/expressjs/body-parser)
 
+```bash
+$ npm install --save body-parser
+```
+
 ```js
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
