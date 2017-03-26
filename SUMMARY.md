@@ -1,6 +1,5 @@
 # Summary
 
-* [MongoDB Intoroduction](/mongodb-intro.md)
-
-
+* [Introduction](README.md)
+* [MongoDB](mongodb.md)
 
