@@ -1,5 +1,8 @@
 # Summary
 
 * [Introduction](README.md)
-* [MongoDB](mongodb.md)
+* [MongoDB Setup](/mongo-setup.md)
+* [MongoDB Shell](/mongo-shell.md)
+
+
 
