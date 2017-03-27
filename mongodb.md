@@ -1,5 +1,7 @@
 # MongoDB
 
+> ## Let's get started with MongoDB
+
 ## Introduction
 
 MongoDB is an open-source document database that provides high performance, high availability, and automatic scaling.
@@ -98,6 +100,8 @@ When you run `mongo` without any arguments, the `mongo` shell will attempt to co
 
 ---
 
+> ## Let's play with Mongo Shell!
+
 ## Display a list of available commands
 
 ```js
@@ -141,7 +145,7 @@ local  0.000GB
 switched to db test
 ```
 
-## Create a document
+## Create Data
 
 You can use the `insert()` method to add documents to a collection in MongoDB.
 
@@ -157,7 +161,7 @@ WriteResult({ "nInserted" : 1 })
 
 If the document passed to the `insert()` method does not contain the `_id` field, the `mongo` shell automatically adds the field to the document and sets the field’s value to a generated ObjectId.
 
-## Read the documents
+## Read Data
 
 You can use the `find()` method to issue a query to retrieve data from a collection in MongoDB.
 
@@ -230,7 +234,7 @@ You can combine multiple query conditions in logical conjunction \(AND\) and log
 
 ### Sort Query Results
 
-To specify an order for the result set, append the `sort()` method to the query. 
+To specify an order for the result set, append the `sort()` method to the query.
 
 Pass to `sort()` method a document which contains the field\(s\) to sort by and the corresponding sort type, e.g. `1` for ascending and `-1` for descending.
 
@@ -241,11 +245,68 @@ Pass to `sort()` method a document which contains the field\(s\) to sort by and 
 { "_id" : ObjectId("58d88ab98c6903129f8fe4c4"), "name" : "Dale Seo", "score" : 90 }
 ```
 
-## Delete the documents
+## Update Data
 
-```bash
-db.users.deleteMany({})
-{ "acknowledged" : true, "deletedCount" : 1 }
+### Update Specific Fields
+
+You can use the `update()` method to update documents of a collection. The method accepts as its parameters:
+
+* a filter document to match the documents to update,
+* an update document to specify the modification to perform, and
+* an options parameter \(optional\).
+
+```js
+> db.students.update({"name": "Benjamin Sadick"}, {$set: {"score": 80}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+```
+
+For a complete list of the operators, see [update operators](https://docs.mongodb.com/manual/reference/operator/update/).
+
+### Replace a Document
+
+To replace the **entire** document except for the `_id` field, pass an entirely new document as the second argument to the `update()` method.
+
+```js
+> db.students.update({"_id": ObjectId("58d88aec8c6903129f8fe4c6")}, {"name": "박재민", "score": 100})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+```
+
+**Important: After the update, the document only contains the field or fields in the replacement document.**
+
+## Remove Data
+
+You can use the `remove()` method to remove documents from a collection. 
+
+The method takes a conditions document that determines the documents to remove.
+
+### Remove Documents That Match a Condition
+
+The following operation removes all documents that match the specified condition.
+
+```js
+> db.students.remove({"name": "박재민"})
+WriteResult({ "nRemoved" : 1 })
+```
+
+### Remove All Documents
+
+To remove all documents from a collection, pass an empty conditions document `{}` to the `remove()` method.
+
+```js
+> db.students.remove({})
+```
+
+The remove all operation only removes the documents from the collection.
+
+The collection itself, as well as any indexes for the collection, remain.
+
+### Drop a Collection
+
+Use the `drop()` method to drop a collection, including any indexes.
+
+```js
+> db.students.drop()
+true
 ```
 
 ## Reference
@@ -253,6 +314,7 @@ db.users.deleteMany({})
 * [Getting Started With MongoDB](https://docs.mongodb.com/getting-started/shell/)
 * [Mongo Shell Quick Reference](https://docs.mongodb.com/manual/reference/mongo-shell/)
 * [Query and Projection Operators](https://docs.mongodb.com/manual/reference/operator/query/)
+* [Update Operators](https://docs.mongodb.com/manual/reference/operator/update/)
 
 
 
