@@ -1,5 +1,57 @@
 # MongoDB
 
+## Introduction
+
+MongoDB is an open-source document database that provides high performance, high availability, and automatic scaling.
+
+MongoDB obviates the need for an Object Relational Mapping \(ORM\) to facilitate development.
+
+## Documents
+
+A record in MongoDB is a document, which is a data structure composed of field and value pairs. 
+
+MongoDB documents are similar to JSON objects. 
+
+The values of fields may include other documents, arrays, and arrays of documents.
+
+```js
+{
+   "_id" : ObjectId("54c955492b7c8eb21818bd09"),
+   "address" : {
+      "street" : "2 Avenue",
+      "zipcode" : "10075",
+      "building" : "1480",
+      "coord" : [ -73.9557413, 40.7720266 ]
+   },
+   "borough" : "Manhattan",
+   "cuisine" : "Italian",
+   "grades" : [
+      {
+         "date" : ISODate("2014-10-01T00:00:00Z"),
+         "grade" : "A",
+         "score" : 11
+      },
+      {
+         "date" : ISODate("2014-01-16T00:00:00Z"),
+         "grade" : "B",
+         "score" : 17
+      }
+   ],
+   "name" : "Vella",
+   "restaurant_id" : "41704620"
+}
+```
+
+## Collections
+
+MongoDB stores documents in collections. 
+
+Collections are analogous to tables in relational databases. 
+
+Unlike a table, however, a collection does not require its documents to have the same schema.
+
+In MongoDB, documents stored in a collection must have a unique \_id field that acts as a primary key.
+
 ## Installation
 
 * Mac
@@ -14,9 +66,11 @@ $ brew install mongodb
 
   * Download Community Server
 
+  * See [https://docs.mongodb.com/getting-started/shell/tutorial/install-mongodb-on-windows/](https://docs.mongodb.com/getting-started/shell/tutorial/install-mongodb-on-windows/) for help
+
 ## Run Mongo Daemon
 
-Open a terminal
+To run MongoDB, run the `mongod` process at the termial.
 
 ```bash
 $ mongod
@@ -28,7 +82,9 @@ $ mongod
 
 ## Run Mongo Shell
 
-Open another terminal
+The mongo shell is an interactive JavaScript interface to MongoDB and is a component of the MongoDB package. 
+
+You can use the mongo shell to query and update data as well as perform administrative operations.
 
 ```bash
 $ mongo
@@ -38,9 +94,56 @@ MongoDB server version: 3.4.2
 >
 ```
 
+## Import Example Dataset
+
+The examples in this guide use the restaurants collection in the test database. 
+
+The following is a sample document in the restaurants collection:
+
+```js
+{
+  "address": {
+     "building": "1007",
+     "coord": [ -73.856077, 40.848447 ],
+     "street": "Morris Park Ave",
+     "zipcode": "10462"
+  },
+  "borough": "Bronx",
+  "cuisine": "Bakery",
+  "grades": [
+     { "date": { "$date": 1393804800000 }, "grade": "A", "score": 2 },
+     { "date": { "$date": 1378857600000 }, "grade": "A", "score": 6 },
+     { "date": { "$date": 1358985600000 }, "grade": "A", "score": 10 },
+     { "date": { "$date": 1322006400000 }, "grade": "A", "score": 9 },
+     { "date": { "$date": 1299715200000 }, "grade": "B", "score": 14 }
+  ],
+  "name": "Morris Park Bake Shop",
+  "restaurant_id": "30075445"
+}
+```
+
+Use the following procedure to populate the restaurants collection.
+
+### Retrieve the restaurants data.
+
+Retrieve the dataset from [https://raw.githubusercontent.com/mongodb/docs-assets/primer-dataset/primer-dataset.json](https://raw.githubusercontent.com/mongodb/docs-assets/primer-dataset/primer-dataset.json) and save to a file named primer-dataset.json.
+
+### Import data into the collection.
+
+In the system shell or command prompt, use`mongoimport`to insert the documents into the`restaurants`collection in the`test`database. 
+
+If the collection already exists in the`test`database, the operation will **drop **the`restaurants`collection first.
+
+```bash
+$ mongoimport --db test --collection restaurants --drop --file primer-dataset.json
+2017-03-27T11:59:40.367+0900	connected to: localhost
+2017-03-27T11:59:40.368+0900	dropping: test.restaurants
+2017-03-27T11:59:41.165+0900	imported 25359 documents
+```
+
 ## Play with Mongo Shell
 
-### manual
+### Show a list of available commands
 
 ```bash
 > help
@@ -103,6 +206,10 @@ WriteResult({ "nInserted" : 1 })
 db.users.deleteMany({})
 { "acknowledged" : true, "deletedCount" : 1 }
 ```
+
+## Reference
+
+* [https://docs.mongodb.com/getting-started/shell/](https://docs.mongodb.com/getting-started/shell/)
 
 
 
