@@ -143,7 +143,7 @@ switched to db test
 
 ## Create a document
 
-You can use the `insert()` method to add documents to a collection in MongoDB. 
+You can use the `insert()` method to add documents to a collection in MongoDB.
 
 ```js
 > db.students.insert({"name": 'Dale Seo', "score": 90})
@@ -169,6 +169,14 @@ To return all documents in a collection, call the find\(\) method without a crit
 > db.students.find()
 { "_id" : ObjectId("58d88ab98c6903129f8fe4c4"), "name" : "Dale Seo", "score" : 90 }
 { "_id" : ObjectId("58d88ae08c6903129f8fe4c5"), "name" : "Nate Lipp", "score" : 70 }
+{ "_id" : ObjectId("58d88aec8c6903129f8fe4c6"), "name" : "Benjamin Sadick", "score" : 30 }
+```
+
+Regular expressions are supported.
+
+```js
+> db.students.find({"name": /S/})
+{ "_id" : ObjectId("58d88ab98c6903129f8fe4c4"), "name" : "Dale Seo", "score" : 90 }
 { "_id" : ObjectId("58d88aec8c6903129f8fe4c6"), "name" : "Benjamin Sadick", "score" : 30 }
 ```
 
@@ -201,7 +209,37 @@ The query conditions using operators generally have the following form:
 
 For a complete list of the operators, see [query operators](https://docs.mongodb.com/manual/reference/operator/query/).
 
+### Combine Conditions
+
+You can combine multiple query conditions in logical conjunction \(AND\) and logical disjunctions \(OR\).
+
+#### Logical AND
+
+```js
+> db.students.find({"score": {$lt: 80}, "name": /Lipp$/})
+{ "_id" : ObjectId("58d88ae08c6903129f8fe4c5"), "name" : "Nate Lipp", "score" : 70 }
+```
+
+### Logical OR
+
+```js
+> db.students.find({$or: [{"name": /^Ben/}, {"name": /^Nate/}]})
+{ "_id" : ObjectId("58d88ae08c6903129f8fe4c5"), "name" : "Nate Lipp", "score" : 70 }
+{ "_id" : ObjectId("58d88aec8c6903129f8fe4c6"), "name" : "Benjamin Sadick", "score" : 30 }
+```
+
 ### Sort Query Results
+
+To specify an order for the result set, append the `sort()` method to the query. 
+
+Pass to `sort()` method a document which contains the field\(s\) to sort by and the corresponding sort type, e.g. `1` for ascending and `-1` for descending.
+
+```js
+> db.students.find().sort({"score": 1})
+{ "_id" : ObjectId("58d88aec8c6903129f8fe4c6"), "name" : "Benjamin Sadick", "score" : 30 }
+{ "_id" : ObjectId("58d88ae08c6903129f8fe4c5"), "name" : "Nate Lipp", "score" : 70 }
+{ "_id" : ObjectId("58d88ab98c6903129f8fe4c4"), "name" : "Dale Seo", "score" : 90 }
+```
 
 ## Delete the documents
 
