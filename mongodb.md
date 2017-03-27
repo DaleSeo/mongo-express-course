@@ -8,9 +8,9 @@ MongoDB obviates the need for an Object Relational Mapping \(ORM\) to facilitate
 
 ## Documents
 
-A record in MongoDB is a document, which is a data structure composed of field and value pairs. 
+A record in MongoDB is a document, which is a data structure composed of field and value pairs.
 
-MongoDB documents are similar to JSON objects. 
+MongoDB documents are similar to JSON objects.
 
 The values of fields may include other documents, arrays, and arrays of documents.
 
@@ -44,9 +44,9 @@ The values of fields may include other documents, arrays, and arrays of document
 
 ## Collections
 
-MongoDB stores documents in collections. 
+MongoDB stores documents in collections.
 
-Collections are analogous to tables in relational databases. 
+Collections are analogous to tables in relational databases.
 
 Unlike a table, however, a collection does not require its documents to have the same schema.
 
@@ -82,9 +82,9 @@ $ mongod
 
 ## Run Mongo Shell
 
-The mongo shell is an interactive JavaScript interface to MongoDB and is a component of the MongoDB package. 
+The `mongo` shell is an interactive JavaScript interface to MongoDB and is a component of the MongoDB package.
 
-You can use the mongo shell to query and update data as well as perform administrative operations.
+You can use the `mongo` shell to query and update data as well as perform administrative operations.
 
 ```bash
 $ mongo
@@ -94,58 +94,13 @@ MongoDB server version: 3.4.2
 >
 ```
 
-## Import Example Dataset
+When you run `mongo` without any arguments, the `mongo` shell will attempt to connect to the MongoDB instance running on the **localhost** interface on port **27017**.
 
-The examples in this guide use the restaurants collection in the test database. 
+---
 
-The following is a sample document in the restaurants collection:
+## Display a list of available commands
 
 ```js
-{
-  "address": {
-     "building": "1007",
-     "coord": [ -73.856077, 40.848447 ],
-     "street": "Morris Park Ave",
-     "zipcode": "10462"
-  },
-  "borough": "Bronx",
-  "cuisine": "Bakery",
-  "grades": [
-     { "date": { "$date": 1393804800000 }, "grade": "A", "score": 2 },
-     { "date": { "$date": 1378857600000 }, "grade": "A", "score": 6 },
-     { "date": { "$date": 1358985600000 }, "grade": "A", "score": 10 },
-     { "date": { "$date": 1322006400000 }, "grade": "A", "score": 9 },
-     { "date": { "$date": 1299715200000 }, "grade": "B", "score": 14 }
-  ],
-  "name": "Morris Park Bake Shop",
-  "restaurant_id": "30075445"
-}
-```
-
-Use the following procedure to populate the restaurants collection.
-
-### Retrieve the restaurants data.
-
-Retrieve the dataset from [https://raw.githubusercontent.com/mongodb/docs-assets/primer-dataset/primer-dataset.json](https://raw.githubusercontent.com/mongodb/docs-assets/primer-dataset/primer-dataset.json) and save to a file named primer-dataset.json.
-
-### Import data into the collection.
-
-In the system shell or command prompt, use`mongoimport`to insert the documents into the`restaurants`collection in the`test`database. 
-
-If the collection already exists in the`test`database, the operation will **drop **the`restaurants`collection first.
-
-```bash
-$ mongoimport --db test --collection restaurants --drop --file primer-dataset.json
-2017-03-27T11:59:40.367+0900	connected to: localhost
-2017-03-27T11:59:40.368+0900	dropping: test.restaurants
-2017-03-27T11:59:41.165+0900	imported 25359 documents
-```
-
-## Play with Mongo Shell
-
-### Show a list of available commands
-
-```bash
 > help
     db.help()                    help on db methods
     db.mycoll.help()             help on collection methods
@@ -171,36 +126,84 @@ $ mongoimport --db test --collection restaurants --drop --file primer-dataset.js
     exit                         quit the mongo shell
 ```
 
-### List up the databases
+## List up the databases
 
-```bash
+```js
 > show dbs
 admin  0.000GB
 local  0.000GB
 ```
 
-### Use a database
+## Switch to a database
 
-```bash
+```js
 > use test
 switched to db test
 ```
 
-### Create a document
+## Create a document
 
-```bash
-> db.users.insert({name: 'Dale Seo'})
+You can use the `insert()` method to add documents to a collection in MongoDB. 
+
+```js
+> db.students.insert({"name": 'Dale Seo', "score": 90})
+```
+
+The method returns a `WriteResult` object with the status of the operation.
+
+```js
 WriteResult({ "nInserted" : 1 })
 ```
 
-### Read the documents
+If the document passed to the `insert()` method does not contain the `_id` field, the `mongo` shell automatically adds the field to the document and sets the field’s value to a generated ObjectId.
 
-```bash
-> db.users.find()
-{ "_id" : ObjectId("58d737d98754ca3d8b1c79bf"), "name" : "Dale Seo" }
+## Read the documents
+
+You can use the `find()` method to issue a query to retrieve data from a collection in MongoDB.
+
+### Query for All Documents in a Collection
+
+To return all documents in a collection, call the find\(\) method without a criteria document.
+
+```js
+> db.students.find()
+{ "_id" : ObjectId("58d88ab98c6903129f8fe4c4"), "name" : "Dale Seo", "score" : 90 }
+{ "_id" : ObjectId("58d88ae08c6903129f8fe4c5"), "name" : "Nate Lipp", "score" : 70 }
+{ "_id" : ObjectId("58d88aec8c6903129f8fe4c6"), "name" : "Benjamin Sadick", "score" : 30 }
 ```
 
-### Delete the documents
+### Specify Equality Conditions
+
+The query condition for an equality match on a field has the following form:
+
+```js
+{ <field1>: <value1>, <field2>: <value2>, ... }
+```
+
+```js
+> db.students.find({"name": "Dale Seo"})
+{ "_id" : ObjectId("58d88ab98c6903129f8fe4c4"), "name" : "Dale Seo", "score" : 90 }
+```
+
+### Specify Conditions with Operators
+
+The query conditions using operators generally have the following form:
+
+```js
+{ <field1>: { <operator1>: <value1> } }
+```
+
+```js
+> db.students.find({"score": {$gt: 50}})
+{ "_id" : ObjectId("58d88ab98c6903129f8fe4c4"), "name" : "Dale Seo", "score" : 90 }
+{ "_id" : ObjectId("58d88ae08c6903129f8fe4c5"), "name" : "Nate Lipp", "score" : 70 }
+```
+
+For a complete list of the operators, see [query operators](https://docs.mongodb.com/manual/reference/operator/query/).
+
+### Sort Query Results
+
+## Delete the documents
 
 ```bash
 db.users.deleteMany({})
@@ -209,7 +212,9 @@ db.users.deleteMany({})
 
 ## Reference
 
-* [https://docs.mongodb.com/getting-started/shell/](https://docs.mongodb.com/getting-started/shell/)
+* [Getting Started With MongoDB](https://docs.mongodb.com/getting-started/shell/)
+* [Mongo Shell Quick Reference](https://docs.mongodb.com/manual/reference/mongo-shell/)
+* [Query and Projection Operators](https://docs.mongodb.com/manual/reference/operator/query/)
 
 
 
