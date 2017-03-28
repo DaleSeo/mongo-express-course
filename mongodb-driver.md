@@ -82,11 +82,10 @@ function insertDocument (collection, doc, callback) {
 }
 ```
 
-The **insert **command returns an object with the following fields:
+The **insertOne **command returns an object with the following fields:
 
 * **result **Contains the result document from MongoDB
 * **ops **Contains the documents inserted with added **\_id **fields
-* **connection **Contains the connection used to perform the insert
 
 Add the following code to call the **insertDocument **function:
 
@@ -120,9 +119,9 @@ Connected successfully to server
 >>> Inserted: 58da1191364fd2a2e70a0e1d
 ```
 
-## Find All Documents {#find-all-documents}
+## Find a Document {#find-all-documents}
 
-Add a query that returns all the documents.
+Add a query filter to find a single document which meet the query criteria.
 
 ```js
 function findDocument (collection, id, callback) {
@@ -135,22 +134,30 @@ function findDocument (collection, id, callback) {
 }
 ```
 
-This query returns all the documents in the **documents **collection. Add the **findDocument **method to the **MongoClient.connect **callback:
+Only the document whose **\_id** matches should be returned.
 
 ```js
-MongoClient.connect(url, (err, db) => {
-  assert.equal(null, err)
-  console.log('Connected successfully to server')
+  insertDocument(collection, {name: 'Dale Seo', score: 90}, id => {
+    console.log('>>> Inserted:', id)
 
-  findDocuments(db, function () {
-    db.close()
+    findDocument(collection, id, doc => {
+      console.log('>>> Found:', doc)
+      
+      db.close()
+    })
   })
-})
+```
+
+```js
+$ node app.js
+Connected successfully to server
+>>> Inserted: 58da12943c0348a5129a1b60
+>>> Found: { _id: 58da12943c0348a5129a1b60, name: 'Dale Seo', score: 90 }
 ```
 
 ## Update a Document
 
-The following operation updates a document in the **documents **collection.
+The following operation updates a document in the **students **collection.
 
 ```js
 function updateDocument (collection, id, doc, callback) {
@@ -163,11 +170,31 @@ function updateDocument (collection, id, doc, callback) {
 }
 ```
 
-The method updates the first document where the field a is equal to 2 by adding a new field b to the document set to 1. Next, update the callback function from MongoClient.connect to include the update method.
+```js
+  insertDocument(collection, {name: 'Dale Seo', score: 90}, id => {
+    console.log('>>> Inserted:', id)
+
+    findDocument(collection, id, doc => {
+      console.log('>>> Found:', doc)
+
+      updateDocument(collection, id, {score: 10}, _ => {
+        console.log(">>> Updated")
+        
+        db.close()
+      })
+    })
+  })
+```
+
+```js
+$ node app.js
+Connected successfully to server
+>>> Inserted: 58da1349433337a6b7e15037
+>>> Found: { _id: 58da1349433337a6b7e15037, name: 'Dale Seo', score: 90 }
+>>> Updated
+```
 
 ## Remove a document {#remove-a-document}
-
-Remove the document where the field**a**is equal to**3**.
 
 ```js
 function removeDocument (collection, id, callback) {
@@ -180,10 +207,32 @@ function removeDocument (collection, id, callback) {
 }
 ```
 
-Add the new method to the MongoClient.connect callback function.
+```js
+  insertDocument(collection, {name: 'Dale Seo', score: 90}, id => {
+    console.log('>>> Inserted:', id)
+
+    findDocument(collection, id, doc => {
+      console.log('>>> Found:', doc)
+
+      updateDocument(collection, id, {score: 10}, _ => {
+        console.log(">>> Updated")
+    
+        removeDocument(collection, id, _ => {
+          console.log(">>> Removed")
+          db.close()
+        })
+      })
+    })
+  })
+```
 
 ```js
-
+$ node app.js
+Connected successfully to server
+>>> Inserted: 58da13ec0ec043a83ff960ab
+>>> Found: { _id: 58da13ec0ec043a83ff960ab, name: 'Dale Seo', score: 90 }
+>>> Updated
+>>> Removed
 ```
 
 
