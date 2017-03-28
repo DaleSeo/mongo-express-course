@@ -1,6 +1,6 @@
 # MongoDB Driver
 
-> The MongoDB Driver for NodeJS is the client library that handles the interface between the NodeJS application and the MongoDB server.
+The MongoDB driver for NodeJS is the client library that handles the interface between the NodeJS application and the MongoDB server.
 
 ## Create a NodeJS Project
 
@@ -41,7 +41,31 @@ You should see the **mongod **process start up and print some status information
 
 Create a new **app.js** file and add the following code to try out some basic CRUD operations using the MongoDB driver.
 
-
-
 Add code to connect to the server and the database myproject:
+
+```js
+var MongoClient = require('mongodb').MongoClient,
+  assert = require('assert')
+
+// Connection URL
+var url = 'mongodb://localhost:27017/myproject'
+
+// Use connect method to connect to the server
+MongoClient.connect(url, (err, db) => {
+  assert.equal(null, err)
+  console.log('Connected successfully to server')
+
+  db.close()
+})
+```
+
+Run your app from the command line with:
+
+```bash
+$ node app.js
+```
+
+The application should print **Connected successfully to server **to the console.
+
+
 
