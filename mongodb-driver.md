@@ -67,5 +67,58 @@ $ node app.js
 
 The application should print **Connected successfully to server **to the console.
 
+## Insert a Document {#insert-a-document}
+
+Add to **app.js **the following function which uses the **insertMany **method to add three documents to the **documents **collection.
+
+```js
+function insertDocuments (db, callback) {
+  // Get the documents collection
+  var collection = db.collection('documents')
+  // Insert some documents
+  collection.insertMany([
+    {a: 1}, {a: 2}, {a: 3}
+  ], (err, result) => {
+    assert.equal(err, null)
+    assert.equal(3, result.result.n)
+    assert.equal(3, result.ops.length)
+    console.log('Inserted 3 documents into the collection')
+    callback(result)
+  })
+}
+```
+
+The **insert **command returns an object with the following fields:
+
+* **result **Contains the result document from MongoDB
+* **ops **Contains the documents inserted with added **\_id **fields
+* **connection **Contains the connection used to perform the insert
+
+Add the following code to call the **insertDocuments **function:
+
+```js
+MongoClient.connect(url, (err, db) => {
+  assert.equal(null, err)
+  console.log('Connected successfully to server')
+
+  insertDocuments(db, function () {
+    db.close()
+  })
+})
+```
+
+Run the updated **app.js **file:
+
+```bash
+$ node app.js
+```
+
+The operation returns the following output:
+
+```bash
+Connected successfully to server
+Inserted 3 documents into the collection
+```
+
 
 
