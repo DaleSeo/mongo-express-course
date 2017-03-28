@@ -44,11 +44,11 @@ Create a new **app.js** file and add the following code to try out some basic CR
 Add code to connect to the server and the database myproject:
 
 ```js
-var MongoClient = require('mongodb').MongoClient,
+const MongoClient = require('mongodb').MongoClient,
   assert = require('assert')
 
 // Connection URL
-var url = 'mongodb://localhost:27017/myproject'
+const url = 'mongodb://localhost:27017/test'
 
 // Use connect method to connect to the server
 MongoClient.connect(url, (err, db) => {
@@ -69,7 +69,7 @@ The application should print **Connected successfully to server **to the console
 
 ## Insert a Document {#insert-a-document}
 
-Add to **app.js **the following function which uses the **insertMany **method to add three documents to the **documents **collection.
+Add to **app.js **the following function which uses the **insertOne **method to add a document to the **students **collection.
 
 ```js
 function insertDocument (collection, doc, callback) {
@@ -88,7 +88,7 @@ The **insert **command returns an object with the following fields:
 * **ops **Contains the documents inserted with added **\_id **fields
 * **connection **Contains the connection used to perform the insert
 
-Add the following code to call the **insertDocuments **function:
+Add the following code to call the **insertDocument **function:
 
 ```js
 // Use connect method to connect to the server
@@ -117,7 +117,7 @@ The operation returns the following output:
 
 ```bash
 Connected successfully to server
-Inserted 3 documents into the collection
+>>> Inserted: 58da1191364fd2a2e70a0e1d
 ```
 
 ## Find All Documents {#find-all-documents}
