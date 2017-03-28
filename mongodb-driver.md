@@ -142,7 +142,7 @@ Only the document whose **\_id** matches should be returned.
 
     findDocument(collection, id, doc => {
       console.log('>>> Found:', doc)
-      
+
       db.close()
     })
   })
@@ -156,8 +156,6 @@ Connected successfully to server
 ```
 
 ## Update a Document
-
-The following operation updates a document in the **students **collection.
 
 ```js
 function updateDocument (collection, id, doc, callback) {
@@ -179,7 +177,7 @@ function updateDocument (collection, id, doc, callback) {
 
       updateDocument(collection, id, {score: 10}, _ => {
         console.log(">>> Updated")
-        
+
         db.close()
       })
     })
@@ -194,7 +192,7 @@ Connected successfully to server
 >>> Updated
 ```
 
-## Remove a document {#remove-a-document}
+## Remove a Document {#remove-a-document}
 
 ```js
 function removeDocument (collection, id, callback) {
@@ -216,7 +214,7 @@ function removeDocument (collection, id, callback) {
 
       updateDocument(collection, id, {score: 10}, _ => {
         console.log(">>> Updated")
-    
+
         removeDocument(collection, id, _ => {
           console.log(">>> Removed")
           db.close()
