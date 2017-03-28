@@ -1,6 +1,6 @@
 # MongoDB Shell
 
-> ## Let's play with MongoDB Shell!
+> Let's perform the simple CRUD operations on MongoDB Shell!
 
 ## Display a list of available commands
 

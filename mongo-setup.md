@@ -1,6 +1,6 @@
 # MongoDB Setup
 
-> ## Let's get started with MongoDB
+> Let's get started with MongoDB
 
 ## Introduction
 
