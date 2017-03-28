@@ -171,7 +171,7 @@ To replace the **entire** document except for the `_id` field, pass an entirely 
 WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
 ```
 
-**Important: After the update, the document only contains the field or fields in the replacement document.**
+> **Important: After the update, the document only contains the field or fields in the replacement document.**
 
 ## Remove Data
 
