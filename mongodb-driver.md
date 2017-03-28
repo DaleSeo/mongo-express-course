@@ -72,18 +72,12 @@ The application should print **Connected successfully to server **to the console
 Add to **app.js **the following function which uses the **insertMany **method to add three documents to the **documents **collection.
 
 ```js
-function insertDocuments (db, callback) {
-  // Get the documents collection
-  var collection = db.collection('documents')
-  // Insert some documents
-  collection.insertMany([
-    {a: 1}, {a: 2}, {a: 3}
-  ], (err, result) => {
-    assert.equal(err, null)
-    assert.equal(3, result.result.n)
-    assert.equal(3, result.ops.length)
-    console.log('Inserted 3 documents into the collection')
-    callback(result)
+function insertDocument (collection, doc, callback) {
+  collection.insertOne(doc, (err, result) => {
+    assert.equal(null, err)
+    console.log(result)
+    assert.equal(1, result.result.n)
+    callback(result.ops[0]._id)
   })
 }
 ```
@@ -97,11 +91,17 @@ The **insert **command returns an object with the following fields:
 Add the following code to call the **insertDocuments **function:
 
 ```js
+// Use connect method to connect to the server
 MongoClient.connect(url, (err, db) => {
   assert.equal(null, err)
   console.log('Connected successfully to server')
 
-  insertDocuments(db, function () {
+  // Get the documents collection
+  let collection = db.collection('students')
+
+  insertDocument(collection, {name: 'Dale Seo', score: 90}, id => {
+    console.log('>>> Inserted:', id)
+
     db.close()
   })
 })
@@ -118,6 +118,72 @@ The operation returns the following output:
 ```bash
 Connected successfully to server
 Inserted 3 documents into the collection
+```
+
+## Find All Documents {#find-all-documents}
+
+Add a query that returns all the documents.
+
+```js
+function findDocument (collection, id, callback) {
+  collection.findOne({_id: id}, (err, doc) => {
+    assert.equal(null, err)
+    console.log(doc)
+    assert(id.equals(doc._id))
+    callback(doc)
+  })
+}
+```
+
+This query returns all the documents in the **documents **collection. Add the **findDocument **method to the **MongoClient.connect **callback:
+
+```js
+MongoClient.connect(url, (err, db) => {
+  assert.equal(null, err)
+  console.log('Connected successfully to server')
+
+  findDocuments(db, function () {
+    db.close()
+  })
+})
+```
+
+## Update a Document
+
+The following operation updates a document in the **documents **collection.
+
+```js
+function updateDocument (collection, id, doc, callback) {
+  collection.updateOne({_id: id}, {$set: doc}, (err, result) => {
+    assert.equal(null, err)
+    console.log(result)
+    assert.equal(1, result.result.n)
+    callback()
+  })
+}
+```
+
+The method updates the first document where the field a is equal to 2 by adding a new field b to the document set to 1. Next, update the callback function from MongoClient.connect to include the update method.
+
+## Remove a document {#remove-a-document}
+
+Remove the document where the field**a**is equal to**3**.
+
+```js
+function removeDocument (collection, id, callback) {
+  collection.deleteOne({_id: id}, (err, result) => {
+    assert.equal(null, err)
+    console.log(result)
+    assert.equal(1, result.result.n)
+    callback()
+  })
+}
+```
+
+Add the new method to the MongoClient.connect callback function.
+
+```js
+
 ```
 
 
