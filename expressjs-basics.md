@@ -101,6 +101,26 @@ app.delete('/user', (req, res) => {
 })
 ```
 
+# Serving Static files {#serving-static-files-in-express}
+
+To serve static files such as images, CSS files, and JavaScript files, use the `express.static` built-in middleware function in Express.
+
+Pass the absolute path of the directory that contains the static assets to the `express.static` middleware function to start serving the files directly. For example, use the following code to serve images, CSS files, and JavaScript files in a directory named `public`:
+
+```js
+const path = require('path')
+app.use(express.static(path.join(__dirname, 'public')))
+```
+
+Now, you can load the files that are in the `public` directory:
+
+```
+http://localhost:3000/hello.html
+http://localhost:3000/css/style.css
+http://localhost:3000/js/script.js
+http://localhost:3000/img/logo.png
+```
+
 ## Reference
 
 * [http://expressjs.com](http://expressjs.com "http://expressjs.com")
