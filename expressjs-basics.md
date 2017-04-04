@@ -1,5 +1,10 @@
 # ExpressJS Basics
 
+## Overview
+- A NodeJS web server project
+- A routing + sugar layer on top of NodeJS HTTP server
+- Declarative routing
+- Basic middleware pattern
 ## Installation
 
 Create a directory to hold your application, and make that your working directory.
