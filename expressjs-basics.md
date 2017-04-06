@@ -108,7 +108,7 @@ app.delete('/user', (req, res) => {
 })
 ```
 
-# Serving Static files {#serving-static-files-in-express}
+# Serving Static files
 
 To serve static files such as images, CSS files, and JavaScript files, use the `express.static` built-in middleware function in Express.
 
