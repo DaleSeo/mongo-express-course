@@ -1,4 +1,4 @@
-# ExpressJS Basics2
+# ExpressJS Routing
 
 ## Route parameters
 
