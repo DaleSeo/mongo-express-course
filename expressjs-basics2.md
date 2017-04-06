@@ -13,7 +13,7 @@ req.params: { "userId": "34", "bookId": "8989" }
 To define routes with route parameters, simply specify the route parameters in the path of the route as shown below.
 
 ```js
-app.get('/users/:userId/books/:bookId', function (req, res) {
+app.get('/users/:userId/books/:bookId', (req, res) => {
   res.send(req.params)
 })
 ```
@@ -34,8 +34,61 @@ The methods on the response object \(`res`\) in the following table can send a r
 | [res.sendFile\(\)](http://expressjs.com/en/4x/api.html#res.sendFile) | Send a file as an octet stream. |
 | [res.sendStatus\(\)](http://expressjs.com/en/4x/api.html#res.sendStatus) | Set the response status code and send its string representation as the response body. |
 
-  
+## app.route\(\) {#app-route}
 
+You can create chainable route handlers for a route path by using `app.route()`. Because the path is specified at a single location, creating modular routes is helpful, as is reducing redundancy and typos.
 
+Here is an example of chained route handlers that are defined by using `app.route()`.
 
+```js
+app.route('/book')
+  .get((req, res) => {
+    res.send('Get a random book')
+  })
+  .post((req, res) => {
+    res.send('Add a book')
+  })
+  .put((req, res) => {
+    res.send('Update the book')
+  })
+```
+
+Use the`express.Router`class to create modular, mountable route handlers. A`Router`instance is a complete middleware and routing system; for this reason, it is often referred to as a “mini-app”.
+
+The following example creates a router as a module, loads a middleware function in it, defines some routes, and mounts the router module on a path in the main app.
+
+Create a router file named`birds.js`in the app directory, with the following content:
+
+```js
+var express = require('express')
+var router = express.Router()
+
+// middleware that is specific to this router
+router.use((req, res, next) => {
+  console.log('Time: ', Date.now())
+  next()
+})
+// define the home page route
+router.get('/', (req, res) => {
+  res.send('Birds home page')
+})
+// define the about route
+router.get('/about', (req, res) => {
+  res.send('About birds')
+})
+
+module.exports = router
+```
+
+Then, load the router module in the app:
+
+```js
+var birds = require('./birds')
+
+// ...
+
+app.use('/birds', birds)
+```
+
+The app will now be able to handle requests to`/birds`and`/birds/about`, as well as call the`timeLog`middleware function that is specific to the route.
 
