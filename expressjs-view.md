@@ -2,7 +2,7 @@
 
 ## Template Engine
 
-A _template engine _enables you to use static template files in your application. At runtime, the template engine replaces variables in a template file with actual values, and transforms the template into an HTML file sent to the client. This approach makes it easier to design an HTML page.
+A \_template engine \_enables you to use static template files in your application. At runtime, the template engine replaces variables in a template file with actual values, and transforms the template into an HTML file sent to the client. This approach makes it easier to design an HTML page.
 
 To render template files, set the following [application setting properties](http://expressjs.com/en/4x/api.html#app.set), set in `app.js`:
 
@@ -18,7 +18,7 @@ app.set('views', './views')
 app.set('view engine', 'pug')
 ```
 
-## Twitter Hogan
+## Mustache
 
 The Consolidate.js library follows this convention by mapping all of the popular Node.js template engines, and therefore works seamlessly within Express.
 
@@ -26,10 +26,10 @@ The Consolidate.js library follows this convention by mapping all of the popular
 $ npm install --save consolidate
 ```
 
-Install hogan.
+Install Mustache.
 
 ```bash
-$ npm install --save hogan
+$ npm install --save mustache
 ```
 
 Require Consolidate and registers the Hogan template engine as 'html'.
@@ -37,11 +37,9 @@ Require Consolidate and registers the Hogan template engine as 'html'.
 ```js
 const cons = require('consolidate')
 
-app.engine('html', cons.hogan)
+app.engine('html', cons.mustache)
 app.set('view engine', 'html')
 ```
-
-
 
 ## Reference
 
