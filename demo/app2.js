@@ -1,8 +1,8 @@
 const express = require('express')
-const app = express() // http.createServer()
+const app = express()
 
 app.use((req, res, next) => {
-  console.log('Date:' + Date())
+  console.log('Date:' + new Date())
   next()
 })
 
@@ -19,6 +19,6 @@ app.get('/world', (req, res) => {
   res.send('World')
 })
 
-app.listen(3000, () => {
-  'Express listening on port 3000'
+app.listen(3000, _ => {
+  console.log('Express listening on port 3000')
 })
