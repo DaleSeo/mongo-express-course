@@ -4,7 +4,7 @@
     "name": "Dale Seo",
     "role": "Instructor",
     "email": "dale.seo@gmail.com",
-    "score": "90",
+    "score": 90,
     "img": "dale.jpg"
   },
   {
@@ -12,7 +12,7 @@
     "name": "Benjamin Sadick",
     "role": "Coach",
     "email": "bsadick@gmail.com",
-    "score": "80",
+    "score": 80,
     "img": "ben.jpg"
   },
   {
@@ -20,7 +20,7 @@
     "name": "Nate Lipp",
     "role": "Coach",
     "email": "nateplipp@gmail.com",
-    "score": "80",
+    "score": 80,
     "img": "nate.jpg"
   },
   {
@@ -28,7 +28,7 @@
     "name": "Jiyeon Lee",
     "role": "Student",
     "email": "jiyeon.lee@gmail.com",
-    "score": "60",
+    "score": 60,
     "img": "user.png"
   },
   {
@@ -36,7 +36,7 @@
     "name": "Michael Vogl",
     "role": "Student",
     "email": "michael.vogl@gmail.com",
-    "score": "70",
+    "score": 70,
     "img": "user.png"
   },
   {
@@ -44,7 +44,7 @@
     "name": "Jongil Park",
     "role": "Guest",
     "email": "jongil.park@gmail.com",
-    "score": "100",
+    "score": 100,
     "img": "guest.png"
   }
 ]
