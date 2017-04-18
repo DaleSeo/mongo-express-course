@@ -4,7 +4,7 @@
     "name": "Dale Seo",
     "role": "Instructor",
     "email": "dale.seo@gmail.com",
-    "score": "100",
+    "score": "90",
     "img": "dale.jpg"
   },
   {
@@ -20,7 +20,7 @@
     "name": "Nate Lipp",
     "role": "Coach",
     "email": "nateplipp@gmail.com",
-    "score": "90",
+    "score": "80",
     "img": "nate.jpg"
   },
   {
@@ -38,5 +38,13 @@
     "email": "michael.vogl@gmail.com",
     "score": "70",
     "img": "user.png"
+  },
+  {
+    "_id": "6",
+    "name": "Jongil Park",
+    "role": "Guest",
+    "email": "jongil.park@gmail.com",
+    "score": "100",
+    "img": "guest.png"
   }
 ]
