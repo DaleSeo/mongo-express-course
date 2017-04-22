@@ -1,29 +1,30 @@
 let users = require('../data/users.json')
-let sequence = 6
+let sequence = 7
 
 exports.list = function () {
   return users
 }
 
 exports.detail = function (id) {
-  for (let u of users) {
-    if (u._id === id) {
-      return u
+  for (let user of users) {
+    if (user._id === id) {
+      return user
     }
   }
 }
 
 exports.create = function (user) {
   user._id = String(sequence)
-  user.img = 'guest.png'
   users.push(user)
   sequence++
+  return user._id
 }
 
 exports.modify = function (id, user) {
   for (let i in users) {
     if (users[i]._id === id) {
       users[i] = user
+      break
     }
   }
 }
@@ -31,7 +32,8 @@ exports.modify = function (id, user) {
 exports.remove = function (id) {
   for (let i in users) {
     if (users[i]._id === id) {
-      return users.splice(i, 1)
+      users.splice(i, 1)
+      break
     }
   }
 }

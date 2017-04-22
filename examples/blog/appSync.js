@@ -4,7 +4,7 @@ const logger = require('morgan')
 // const cons = require('consolidate')
 const bodyParser = require('body-parser')
 
-const userService = require('./services/userMemService')
+const userService = require('./services/userMemSyncService')
 
 const app = express()
 
@@ -24,9 +24,8 @@ app.get('/test', (req, res) => {
 })
 
 app.get('/users', (req, res) => {
-  userService.list(users => {
-    res.render('list', {users: users})
-  })
+  let users = userService.list()
+  res.render('list', {users: users})
 })
 
 app.get('/users/add', (req, res) => {
@@ -41,33 +40,28 @@ app.get('/users/add', (req, res) => {
 })
 
 app.post('/users/add', (req, res) => {
-  userService.create(req.body, id => {
-    res.redirect(id + '/view')
-  })
+  let id = userService.create(req.body)
+  res.redirect(id + '/view')
 })
 
 app.get('/users/:id/view', (req, res) => {
-  userService.detail(req.params.id, user => {
-    res.render('view', {user: user})
-  })
+  let user = userService.detail(req.params.id)
+  res.render('view', {user: user})
 })
 
 app.get('/users/:id/del', (req, res) => {
-  userService.remove(req.params.id, _ => {
-    res.redirect('/users')
-  })
+  userService.remove(req.params.id)
+  res.redirect('/users')
 })
 
 app.get('/users/:id/edit', (req, res) => {
-  userService.detail(req.params.id, user => {
-    res.render('edit', {user: user})
-  })
+  let user = userService.detail(req.params.id)
+  res.render('edit', {user: user})
 })
 
 app.post('/users/:id/edit', (req, res) => {
-  userService.modify(req.params.id, req.body, _ => {
-    res.redirect('./view')
-  })
+  userService.modify(req.params.id, req.body)
+  res.redirect('./view')
 })
 
 app.listen(3000, () => {

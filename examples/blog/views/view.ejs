@@ -25,18 +25,21 @@
       </div>
       <div class="media">
         <div class="media-left">
-          <img class="media-object" src="/img/{{user.img}}" width="200"/>
+          <img class="media-object" src="/img/<%=user.img%>" width="200"/>
         </div>
         <div class="media-body">
           <h3 class="media-heading">
-            {{user.name}}
+            <%=user.name%>
           </h3>
-          <dt>Role</dt>
-          <dd>{{user.role}}</dd>
-          <dt>Email</dt>
-          <dd>{{user.email}}</dd>
-          <dt>Score</dt>
-          <dd>{{user.score}}</dd>
+          <br/>
+          <dl>
+            <dt>Role</dt>
+            <dd><%=user.role%></dd>
+            <dt>Email</dt>
+            <dd><%=user.email%></dd>
+            <dt>Score</dt>
+            <dd><%=user.score%></dd>
+        </dl>
         </div>
       </div>
     </div>
