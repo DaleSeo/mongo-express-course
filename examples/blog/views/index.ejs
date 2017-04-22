@@ -20,7 +20,7 @@
       <br/>
       <ul class="list-group">
         <% users.forEach(function(user) { %>
-        <a href="/users/<%=user._id%>/view" class="list-group-item"><%=user.name%></a>
+        <a href="/users/<%=user._id%>" class="list-group-item"><%=user.name%></a>
         <% }) %>
       </ul>
     </div>

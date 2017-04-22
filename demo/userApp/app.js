@@ -8,7 +8,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(logger('common'))
 
 app.get('/', (req, res) => {
-  res.send('Hello, World!')
+  res.send('Hello, Express!')
+})
+
+app.get('/test', (req, res) => {
+  res.send('<h1>How dare you test me like this!</h1>')
 })
 
 app.listen(3000, _ => {

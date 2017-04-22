@@ -16,10 +16,10 @@
         <a href="/users" class="btn btn-primary">
           <span class="glyphicon glyphicon-list"/>
         </a>
-        <a href="edit" class="btn btn-primary">
+        <a href="<%=user._id%>/edit" class="btn btn-primary">
           <span class="glyphicon glyphicon-edit"/>
         </a>
-        <button onclick="if (confirm('Are you sure?')) {location = 'del'}" type="button" class="btn btn-primary">
+        <button onclick="if (confirm('Are you sure?')) {location = '<%=user._id%>/del'}" type="button" class="btn btn-primary">
           <span class="glyphicon glyphicon-trash"/>
         </button>
       </div>

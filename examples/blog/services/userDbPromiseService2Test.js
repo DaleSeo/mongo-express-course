@@ -1,4 +1,4 @@
-const service = require('./userDbPromiseService')
+const service = require('./userDbPromiseService2')
 
 let user = {
   name: 'Average Joe',
