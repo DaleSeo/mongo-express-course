@@ -20,7 +20,7 @@ app.set('view engine', 'pug')
 
 ## EJS
 
-Embedded JavaScript templates
+Embedded JavaScript templates / Effective JavaScript templating
 
 Install EJS.
 
