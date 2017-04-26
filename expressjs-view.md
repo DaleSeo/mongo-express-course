@@ -18,34 +18,36 @@ app.set('views', './views')
 app.set('view engine', 'pug')
 ```
 
-## Mustache
+## EJS
 
-The Consolidate.js library follows this convention by mapping all of the popular Node.js template engines, and therefore works seamlessly within Express.
+Embedded JavaScript templates
 
-```bash
-$ npm install --save consolidate
-```
-
-Install Mustache.
+Install EJS.
 
 ```bash
-$ npm install --save mustache
+$ npm install --save ejs
 ```
 
 Require Consolidate and registers the Hogan template engine as 'html'.
 
 ```js
-const cons = require('consolidate')
+app.set('view engine', 'ejs')
+```
 
-app.engine('html', cons.mustache)
-app.set('view engine', 'html')
+You can embed JavaScript code in the middle of HTML without `<scirpt>` tag
+
+```html
+<ul>
+  <% users.forEach(function(user) { %>
+    <li><%=user.name%></li>
+  <% } %>
+</ul>
 ```
 
 ## Reference
 
 * [http://expressjs.com/en/guide/using-template-engines.html](http://expressjs.com/en/guide/using-template-engines.html)
-* [https://www.npmjs.com/package/consolidate](https://www.npmjs.com/package/consolidate)
-* [http://twitter.github.io/hogan.js/](http://twitter.github.io/hogan.js/)
+* [http://ejs.co](http://ejs.co)
 
 
 
