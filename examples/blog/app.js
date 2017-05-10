@@ -1,7 +1,10 @@
 const express = require('express')
 const path = require('path')
+const fs = require('fs')
 const logger = require('morgan')
 const bodyParser = require('body-parser')
+const multer = require('multer')
+const upload = multer({dest: 'uploads/'})
 
 const userService = require('./services/userDbService')
 
@@ -15,6 +18,7 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(express.static(path.join(__dirname, 'public')))
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use(logger('common'))
 
 const newUser = {
@@ -39,7 +43,10 @@ app.get('/users/add', (req, res) => {
   res.render('edit', {user: newUser})
 })
 
-app.post('/users/add', (req, res) => {
+app.post('/users/add', upload.single('photo'), (req, res) => {
+  console.log('#req.body:', req.body)
+  console.log('#req.file:', req.file)
+  req.body.photo = req.file
   userService.create(req.body, id => {
     res.redirect(id)
   })
@@ -47,6 +54,11 @@ app.post('/users/add', (req, res) => {
 
 app.get('/users/:id', (req, res) => {
   userService.detail(req.params.id, user => {
+    if (!user.photo) {
+      user.photo = {
+        path: 'img/user.png'
+      }
+    }
     res.render('view', {user: user})
   })
 })
@@ -63,7 +75,10 @@ app.get('/users/:id/edit', (req, res) => {
   })
 })
 
-app.post('/users/:id/edit', (req, res) => {
+app.post('/users/:id/edit', upload.single('photo'), (req, res) => {
+  if (req.file) {
+    req.body.photo = req.file
+  }
   userService.modify(req.params.id, req.body, _ => {
     res.redirect('/users/' + req.params.id)
   })
