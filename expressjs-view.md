@@ -1,4 +1,4 @@
-# Express View
+# ExpressJS View
 
 ## Template Engine
 
