@@ -23,11 +23,11 @@ The `enctype` attribute specifies how the form-data should be encoded when submi
 </form>
 ```
 
-## Multer
+## Multer Package
 
-Multer is a Express.js middleware for handling multipart/form-data, which is primarily used for uploading files. 
+Multer is a Express.js middleware for handling multipart/form-data, which is primarily used for uploading files.
 
-Multer adds a `body` object and a `file` or `files` object to the request object. 
+Multer adds a `body` object and a `file` or `files` object to the request object.
 
 The `body` object contains the values of the text fields of the form, the `file` or `files` object contains the files uploaded via the form.
 
@@ -64,7 +64,12 @@ app.post('/users/add', upload.single('photo'), (req, res) => {
 | filename | The name of the file within the destination | DiskStorage |
 | path | The full path to the uploaded file | DiskStorage |
 
-## 
+## Storage Options
+
+* Memory Storage: volatile
+* File System Storage: easy
+* Database Storage: persistent
+* Cloud Storage Service: durable & scalable & global but expensive
 
 ## Reference
 
