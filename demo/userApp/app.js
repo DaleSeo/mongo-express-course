@@ -2,6 +2,8 @@ const express = require('express')
 const logger = require('morgan')
 const path = require('path')
 const bodyParser = require('body-parser')
+const multer = require('multer')
+const upload = multer()
 
 const app = express()
 
@@ -92,7 +94,7 @@ app.get('/users/add', (req, res) => {
     "score": 0,
     "img": "guest.png"
   }
-  res.render('create', {user: newUser})
+  res.render('edit', {user: newUser})
 })
 
 app.post('/users/add', (req, res) => {
@@ -105,6 +107,44 @@ app.post('/users/add', (req, res) => {
 app.get('/users/:id', (req, res) => {
   let user = users.filter(user => user._id === req.params.id)[0]
   res.render('view', {user: user})
+})
+
+app.get('/users/:id/edit', (req, res) => {
+  let user = users.filter(user => user._id === req.params.id)[0]
+  res.render('edit', {user: user})
+})
+
+app.post('/users/:id/edit', (req, res) => {
+  for (let i in users) {
+    if (users[i]._id === req.params.id) {
+      req.body._id = req.params.id
+      users[i] = req.body
+    }
+  }
+  res.redirect('/users/' + req.params.id)
+})
+
+app.get('/users/:id/del', (req, res) => {
+  for (let i in users) {
+    if (users[i]._id === req.params.id) {
+      users.splice(i, 1)
+    }
+  }
+  res.redirect('/users')
+})
+
+let file = null
+
+app.post('/upload', upload.single('photo'), (req, res) => {
+  console.log(req.body)
+  console.log(req.file)
+  file = req.file
+  res.send('Uploaded!')
+})
+
+app.get('/photo', (req, res) => {
+  res.set('Content-type', file.mimetype)
+  res.end(file.buffer)
 })
 
 app.listen(3000, _ => {
