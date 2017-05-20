@@ -7,4 +7,5 @@
 * [ExpressJS Basics](/expressjs-basics.md)
 * [ExpressJS View](expressjs-view.md)
 * [ExpressJS File](expressjs-file.md)
+* [ExpressJS Auth](expressjs-auth.md)
 
