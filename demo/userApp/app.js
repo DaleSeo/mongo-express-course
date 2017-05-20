@@ -3,7 +3,7 @@ const logger = require('morgan')
 const path = require('path')
 const bodyParser = require('body-parser')
 const multer = require('multer')
-const upload = multer()
+const upload = multer({ dest: 'uploads/' })
 
 const app = express()
 
@@ -65,6 +65,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
 app.use(express.static(path.join(__dirname, '/public')))
+app.use(express.static(path.join(__dirname, '/uploads')))
 app.use(logger('common'))
 
 // parse application/x-www-form-urlencoded
@@ -144,7 +145,7 @@ app.post('/upload', upload.single('photo'), (req, res) => {
 
 app.get('/photo', (req, res) => {
   res.set('Content-type', file.mimetype)
-  res.end(file.buffer)
+  res.sendFile(path.join(__dirname, file.path))
 })
 
 app.listen(3000, _ => {
