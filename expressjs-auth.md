@@ -10,7 +10,9 @@
 * Fully encapsulate the password encryption and verification logic
 
 * Hash
+
 * Salt
+
 * [How NOT to Store Passwords](https://youtu.be/8ZtInClXe1Q)
 
 ## Account Locking
@@ -22,6 +24,32 @@ Hashing passwords will save your bacon if a hacker gains access to your database
 1. A user's account should be "locked" after some number of consecutive failed login attempts
 2. A user's account should become unlocked once a sufficient amount of time has passed
 3. The User model should expose the reason for a failed login attempt to the application \(though not necessarily to the end user\)
+
+## Passport Package
+
+Passport is authentication middleware for Node.js. Extremely flexible and modular, Passport can be unobtrusively dropped in to any Express-based web application. A comprehensive set of strategies support authentication using a username and password, Facebook, Twitter, and more.
+
+### Verify Callback
+
+When the credentials are valid,
+
+```js
+return done(null, user)
+```
+
+When the credentials are invalid,
+
+```js
+return done(null, false, {message: 'Incorrect username or password'}
+```
+
+When an exception occurred \(e.g. the database is not available\)
+
+```js
+return done(err)
+```
+
+Note that it is important to distinguish the two failure cases that can occur. The latter is a server exception, in which `err` is set to a non-null value. Authentication failures are natural conditions, in which the server is operating normally. Ensure that `err` remains null, and use the final argument to pass additional details.
 
 ## Reference
 
