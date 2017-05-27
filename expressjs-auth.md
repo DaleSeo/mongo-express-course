@@ -15,6 +15,28 @@
 
 * [How NOT to Store Passwords](https://youtu.be/8ZtInClXe1Q)
 
+## Password Encryption
+
+To encrypt the password before it is getting saved we are going to use a package called `bcrypt`.
+
+To install `bcrypt` give the below command
+
+```bash
+$ npm install --save bcrypt
+```
+
+### Hash
+
+
+
+### Salt
+
+The purpose of the salt is to defeat rainbow table attacks.
+
+
+
+
+
 ## Account Locking
 
 Hashing passwords will save your bacon if a hacker gains access to your database, but it does nothing to prevent brute-force attacks against your site's login form. This is where account locking comes in: after a specific number of failed login attempts, we simply ignore subsequent attempts, thereby putting the kibosh on the brute-force attack.
