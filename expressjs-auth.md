@@ -9,10 +9,6 @@
 * Use one-way password encryption rather then two-way
 * Fully encapsulate the password encryption and verification logic
 
-* Hash
-
-* Salt
-
 * [How NOT to Store Passwords](https://youtu.be/8ZtInClXe1Q)
 
 ## Password Encryption
@@ -27,15 +23,9 @@ $ npm install --save bcrypt
 
 ### Hash
 
-
-
 ### Salt
 
 The purpose of the salt is to defeat rainbow table attacks.
-
-
-
-
 
 ## Account Locking
 
