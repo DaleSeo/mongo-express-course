@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient
 const ObjectID = require('mongodb').ObjectID
-const MONGODB_URI = 'mongodb://localhost:27017/ltcs'
+const MONGODB_URI = 'mongodb://user:pass@ds139791.mlab.com:39791/ltcs-todo'
 
 let userCollection
 
