@@ -99,6 +99,23 @@ app.get('/photo', (req, res) => {
   res.sendFile(path.join(__dirname, file.path))
 })
 
+app.get('/signup', (req, res) => {
+  res.render('signup', { error: ''} )
+})
+
+app.post('/signup', (req, res) => {
+  console.log('#req.body:', req.body)
+  if (!req.body.name || !req.body.email || !req.body.password || !req.body.confirmPassword) {
+    res.render('signup', { error: 'Something is missing' })
+  }
+  if (req.body.password !== req.body.confirmPassword) {
+    res.render('signup', { error: 'Password doesn\'t match' })
+  }
+  userSvc.create(req.body, (err, id) => {
+    res.redirect('/')
+  })
+})
+
 app.listen(3000, _ => {
   console.log('Express is listening at port 3000')
 })
