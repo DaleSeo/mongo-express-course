@@ -5,6 +5,8 @@ const bodyParser = require('body-parser')
 const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 
+const userSvc = require('./services/userSvc')
+
 const app = express()
 
 const users = [
@@ -84,7 +86,10 @@ app.post('/test', (req, res) => {
 })
 
 app.get('/users', (req, res) => {
-  res.render('index', {users: users})
+  userSvc.list({}, (err, users) => {
+    console.log('users:', users)
+    res.render('index', {users: users})
+  })
 })
 
 app.get('/users/add', (req, res) => {
@@ -100,14 +105,15 @@ app.get('/users/add', (req, res) => {
 
 app.post('/users/add', (req, res) => {
   let user = req.body
-  user._id = String(sequence++)
-  users.push(user)
-  res.redirect('/users/' + user._id)
+  userSvc.create(user, (err, id) => {
+    res.redirect('/users/' + id)
+  })
 })
 
 app.get('/users/:id', (req, res) => {
-  let user = users.filter(user => user._id === req.params.id)[0]
-  res.render('view', {user: user})
+  userSvc.detail(req.params.id, (err, user) => {
+    res.render('view', {user: user})
+  })
 })
 
 app.get('/users/:id/edit', (req, res) => {
