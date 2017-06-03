@@ -1,4 +1,4 @@
-# MongoDB Indexes
+ongoDB Indexes
 
 ## Why to Create Indexes?
 
@@ -28,9 +28,9 @@ MongoDB defines indexes at the collection level and supports indexes on any fiel
 
 ## Default \_id Index
 
-MongoDB creates a unique index on the `_id` field during the creation of a collection. 
+MongoDB creates a unique index on the `_id` field during the creation of a collection.
 
-The \_id index prevents clients from inserting two documents with the same value for the \_id field. 
+The \_id index prevents clients from inserting two documents with the same value for the \_id field.
 
 You cannot drop this index on the \_id field.
 
@@ -54,23 +54,31 @@ In addition to the MongoDB-defined \_id index, MongoDB supports the creation of 
 
 ![](/assets/index-ascending.bakedsvg.svg)
 
-
-
 For a single-field index and sort operations, the sort order \(i.e. ascending or descending\) of the index key does not matter because MongoDB can traverse the index in either direction.
 
 ### Compound Index
 
 MongoDB also supports user-defined indexes on multiple fields, i.e. compound indexes.
 
+The order of fields listed in a compound index has significance.
+
+For instance, if a compound index consists of { userid: 1, score: -1 }, the index sorts first by userid and then, within each userid value, sorts by score.
+
+![](/assets/index-compound-key.bakedsvg.svg)
 
 
-The order of fields listed in a compound index has significance. 
 
-For instance, if a compound index consists of \`{ userid: 1, score: -1 }, the index sorts first by userid and then, within each userid value, sorts by score.
+For compound indexes and sort operations, the sort order \(i.e. ascending or descending\) of the index keys can determine whether the index can support a sort operation.
 
+### Index Properties
 
+### Unique
 
-## Creating Unique Indexes
+The unique property for an index causes MongoDB to reject duplicate values for the indexed field. 
+
+Other than the unique constraint, unique indexes are functionally interchangeable with other MongoDB indexes.
+
+## Excercise
 
 Check the current indexes. There is only the default index on the `_id` field.
 
