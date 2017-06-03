@@ -4,29 +4,47 @@
 
 ## Cookie
 
-Install
+Install the package.
 
 ```js
 $ npm install --save cookie-parser
 ```
 
-Use `cooki-parser` as a middleware
+Use `cooki-parser` as a middleware.
 
 ```js
 const cookieParser = require('cookie-parser')
- 
+
 app.use(cookieParser())
+```
+
+Set a cookie.
+
+```js
+res.cookie('user', { email: 'a@b.c', password: '1234' });
+```
+
+Clear a cookie.
+
+```js
+res.clearCookie('user');
+```
+
+Get cookies.
+
+```js
+req.cookies.user
 ```
 
 ## Session
 
-Install
+Install the package.
 
 ```js
 $ npm install --save express-session
 ```
 
-Use `express-session` as a middleware
+Use `express-session` as a middleware.
 
 ```js
 const session = require('express-session')
@@ -40,7 +58,9 @@ app.use(session({
 
 ## Reference
 
-* [https://www.npmjs.com/package/cookie-parser](https://www.npmjs.com/package/cookie-parser)
+* [http://expressjs.com/en/4x/api.html\#req.cookies](http://expressjs.com/en/4x/api.html#req.cookies)
+* [http://expressjs.com/en/4x/api.html\#res.cookie](http://expressjs.com/en/4x/api.html#res.cookie)
+* [https://www.npmjs.com/package/cookie-parse](https://www.npmjs.com/package/cookie-parser)
 * [https://www.npmjs.com/package/express-session](https://www.npmjs.com/package/express-session)
 
 
