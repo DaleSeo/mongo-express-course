@@ -1,6 +1,6 @@
 ongoDB Indexes
 
-## Why to Create Indexes?
+## Why to Use Indexes?
 
 Indexes support the efficient execution of queries in MongoDB.
 
@@ -66,15 +66,13 @@ For instance, if a compound index consists of { userid: 1, score: -1 }, the inde
 
 ![](/assets/index-compound-key.bakedsvg.svg)
 
-
-
 For compound indexes and sort operations, the sort order \(i.e. ascending or descending\) of the index keys can determine whether the index can support a sort operation.
 
 ### Index Properties
 
 ### Unique
 
-The unique property for an index causes MongoDB to reject duplicate values for the indexed field. 
+The unique property for an index causes MongoDB to reject duplicate values for the indexed field.
 
 Other than the unique constraint, unique indexes are functionally interchangeable with other MongoDB indexes.
 
