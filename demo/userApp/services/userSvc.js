@@ -1,6 +1,7 @@
 const MongoClient = require('mongodb').MongoClient
 const ObjectID = require('mongodb').ObjectID
 const MONGODB_URI = 'mongodb://user:pass@ds139791.mlab.com:39791/ltcs-todo'
+//const MONGODB_URI = 'mongodb://localhost:27017/blog'
 
 let userCollection
 
@@ -13,9 +14,17 @@ function list(query, cb) {
 }
 
 function create(user, cb) {
+  if (!user.role) {
+    user.role = 'Guest'
+  }
+  user.created = new Date()
+  delete user.confirmPassword
   getUserCollection(coll => {
     coll.insertOne(user, (err, res) => {
-      cb(err, res.ops[0]._id)
+      if (err) {
+        return cb(err)
+      }
+      cb(null, res.ops[0]._id)
     })
   })
 }
@@ -23,6 +32,14 @@ function create(user, cb) {
 function detail(id, cb) {
   getUserCollection(coll => {
     coll.findOne({_id: ObjectID(id)}, (err, user) => {
+      cb(err, user)
+    })
+  })
+}
+
+function findOneByEmail(email, cb) {
+  getUserCollection(coll => {
+    coll.findOne({email: email}, (err, user) => {
       cb(err, user)
     })
   })
@@ -60,5 +77,5 @@ function getUserCollection(cb) {
 }
 
 module.exports = {
-  list, create, detail, remove, modify
+  list, create, detail, remove, modify, findOneByEmail
 }

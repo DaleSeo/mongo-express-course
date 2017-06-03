@@ -18,11 +18,30 @@
         </a>
       </div>
       <br/>
-      <ul class="list-group">
-        <% users.forEach(function (user) { %>
-        <a href="/users/<%=user._id%>" class="list-group-item"><%=user.name%></a>
-        <% }) %>
-      </ul>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Role</th>
+            <th>Signed up</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach(function (user) { %>
+          <tr>
+            <td><a href="/users/<%=user._id%>"><%=user._id%></a></td>
+            <td><%=user.name%></td>
+            <td><%=user.email%></td>
+            <td><%=user.password%></td>
+            <td><%=user.role%></td>
+            <td><%=user.created%></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
     </div>
   </body>
 </html>

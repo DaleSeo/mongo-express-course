@@ -106,12 +106,41 @@ app.get('/signup', (req, res) => {
 app.post('/signup', (req, res) => {
   console.log('#req.body:', req.body)
   if (!req.body.name || !req.body.email || !req.body.password || !req.body.confirmPassword) {
-    res.render('signup', { error: 'Something is missing' })
+    return res.render('signup', { error: 'Something is missing' })
   }
   if (req.body.password !== req.body.confirmPassword) {
-    res.render('signup', { error: 'Password doesn\'t match' })
+    return res.render('signup', { error: 'Password doesn\'t match' })
   }
   userSvc.create(req.body, (err, id) => {
+    if (err) {
+      if (err.code === 11000) {
+        return res.render('signup', { error: 'The email is already registered' })
+      }
+      return res.render('signup', { error: err.message })
+    }
+    res.redirect('/')
+  })
+})
+
+app.get('/login', (req, res) => {
+  res.render('login', { error: ''} )
+})
+
+app.post('/login', (req, res) => {
+  console.log('#req.body:', req.body)
+  if (!req.body.email || !req.body.password) {
+    return res.render('signup', { error: 'Something is missing' })
+  }
+  userSvc.findOneByEmail(req.body.email, (err, user) => {
+    if (err) {
+      return res.render('login', { error: err.message })
+    }
+    if (!user) {
+      return res.render('login', { error: 'Incorrect email' })
+    }
+    if (user.password !== req.body.password) {
+      return res.render('login', { error: 'Incorrect password' })
+    }
     res.redirect('/')
   })
 })
