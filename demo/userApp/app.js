@@ -2,6 +2,7 @@ const express = require('express')
 const logger = require('morgan')
 const path = require('path')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 
@@ -19,6 +20,36 @@ app.use(logger('common'))
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
+
+app.use(cookieParser())
+
+const publicPaths = ['/', '/signup', '/login']
+
+app.use((req, res, next) => {
+  if (publicPaths.indexOf(req.url) > -1 || req.cookies.user) {
+    return next()
+  }
+  res.redirect('/login')
+})
+
+// app.get('/cookieTest', (req, res) => {
+//   res.cookie('foo', {
+//     a: 1,
+//     b: 2,
+//     c: 3
+//   })
+//   res.send('Cookie test done!')
+// })
+//
+// app.get('/checkCookies', (req, res) => {
+//   console.log('#foo:', req.cookies.foo)
+//   res.send('#foo:' + JSON.stringify(req.cookies.foo))
+// })
+//
+// app.get('/clearCookies', (req, res) => {
+//   res.clearCookie('foo')
+//   res.send('Cookie cleared!')
+// })
 
 app.get('/', (req, res) => {
   res.send('Hello, Express!!!!!!!!!!!')
@@ -141,8 +172,14 @@ app.post('/login', (req, res) => {
     if (user.password !== req.body.password) {
       return res.render('login', { error: 'Incorrect password' })
     }
+    res.cookie('user', user)
     res.redirect('/')
   })
+})
+
+app.get('/logout', (req, res) => {
+  res.clearCookie('user')
+  res.redirect('/')
 })
 
 app.listen(3000, _ => {
