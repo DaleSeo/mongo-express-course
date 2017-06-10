@@ -18,19 +18,19 @@ const cookieParser = require('cookie-parser')
 app.use(cookieParser())
 ```
 
-Set a cookie.
+Set a cookie on the **response**.
 
 ```js
-res.cookie('user', { email: 'a@b.c', password: '1234' });
+res.cookie('user', { email: 'a@b.c', password: '1234' })
 ```
 
-Clear a cookie.
+Clear a cookie from the **response**.
 
 ```js
-res.clearCookie('user');
+res.clearCookie('user')
 ```
 
-Get cookies.
+Get cookies from the request.
 
 ```js
 req.cookies.user
@@ -54,6 +54,26 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }))
+```
+
+Set a session on the request.
+
+```js
+req.session.user = { email: 'a@b.c', password: '1234' }
+```
+
+Destory the session from the request.
+
+```js
+req.session.destroy(err => {
+  // do something afterward
+})
+```
+
+Get cookies from request.
+
+```js
+req.session.user
 ```
 
 ## Reference
