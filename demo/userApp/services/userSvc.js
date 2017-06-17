@@ -2,6 +2,7 @@ const MongoClient = require('mongodb').MongoClient
 const ObjectID = require('mongodb').ObjectID
 const MONGODB_URI = 'mongodb://user:pass@ds139791.mlab.com:39791/ltcs-todo'
 //const MONGODB_URI = 'mongodb://localhost:27017/blog'
+const bcrypt = require('bcryptjs')
 
 let userCollection
 
@@ -76,6 +77,20 @@ function getUserCollection(cb) {
   })
 }
 
+const SALT_ROUNDS = 10
+
+function genHash(password, cb) {
+  bcrypt.genSalt(SALT_ROUNDS, (err, salt) => {
+    if (err) return console.error('Failed to get a salt', err)
+    console.log('#salt:', salt)
+    bcrypt.hash(password, salt, (err, hash) => {
+      if (err) return console.error('Failed to make a hash', err)
+      console.log('#hash:', hash)
+      cb(err, hash)
+    })
+  })
+}
+
 module.exports = {
-  list, create, detail, remove, modify, findOneByEmail
+  list, create, detail, remove, modify, findOneByEmail, genHash
 }
