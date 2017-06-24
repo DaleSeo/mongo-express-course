@@ -44,6 +44,12 @@ You can embed JavaScript code in the middle of HTML without `<scirpt>` tag
 </ul>
 ```
 
+## PUG \(Jade\)
+
+```js
+app.set('view engine', 'pug')
+```
+
 ## Reference
 
 * [http://expressjs.com/en/guide/using-template-engines.html](http://expressjs.com/en/guide/using-template-engines.html)
