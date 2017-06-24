@@ -54,6 +54,7 @@ app.set('view engine', 'pug')
 
 * [http://expressjs.com/en/guide/using-template-engines.html](http://expressjs.com/en/guide/using-template-engines.html)
 * [http://ejs.co](http://ejs.co)
+* [https://pugjs.org/](https://pugjs.org/)
 
 
 
