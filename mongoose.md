@@ -58,7 +58,7 @@ Create a document on MongoDB.
 Article.create(toSave, (err, saved) => { ... })
 ```
 
-Find a document on MongoDB.
+Find a document from MongoDB.
 
 ```js
 Article.findById(id, (err, found) => { ... })
@@ -74,6 +74,12 @@ Remove a document from MongoDB.
 
 ```js
 Article.findByIdAndRemove(id, (err, found) => { ... })
+```
+
+Find documents from MongoDB.
+
+```js
+Article.find({}, (err, articles) => { ... })
 ```
 
 
