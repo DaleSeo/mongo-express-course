@@ -11,4 +11,5 @@
 * [ExpressJS Auth](expressjs-auth.md)
 * [ExpressJS Cookie & Session](expressjs-cookie-and-session.md)
 * [ExpressJS Crypto](expressjs-crypto.md)
+* [Mongoose](mongoose.md)
 
